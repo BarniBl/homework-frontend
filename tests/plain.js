@@ -36,4 +36,12 @@ QUnit.module('Тестируем функцию plain', function () {
 	QUnit.test('Работает с элементами разных типов', function (assert) {
 		assert.deepEqual(plain([ [ 'abcde' ], [ [ 'f' ], [ null, false ], [ NaN, NaN ], NaN ], -Infinity ]), [ 'abcde', 'f', null, false, NaN, NaN, NaN, -Infinity ]);
 	});
+	
+	QUnit.test('Работает с вложенными массивами с элементами разных типов', function (assert) {
+		assert.deepEqual(plain([ [ 'string' ], [ [ undefined ], [ null, false ], [ true, NaN ], NaN ], Infinity ]), [ 'string', undefined, null, false, true, NaN, NaN, Infinity ]);
+	});
+	
+	QUnit.test('Работает с глубокой вложенностью', function (assert) {
+				assert.deepEqual(plain([ [ 1 ], [ 2, [ 3, [ 4, [5, [6, [7, [8, [9, [10,11,12]]]]]]]]]]), [ 1, 2, 3, 4, 5, 6,7,8,9,10,11,12 ]);
+	});
 });
