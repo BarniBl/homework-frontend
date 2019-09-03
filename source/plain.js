@@ -1,19 +1,23 @@
 'use strict';
 
-function plain(array){
-	let newArray = [];
-	for (let element of array) {
-		if( Array.isArray(element)){
-			if(element.length > 0){
-				let tempArray = plain(element);
-				for (let subElement of tempArray){
-					newArray.push(subElement);	
-				}
-			}
+function reducer (accumulator, currentValue){
+	if( Array.isArray(currentValue)){
+		if(currentValue.length === 0){
+			return accumulator;
 		}
-		else{
-			newArray.push(element);	
+		let tempArray = plain(currentValue);
+		for (let subElement of tempArray){
+			accumulator.push(subElement);	
 		}
 	}
+	else {
+		accumulator.push(currentValue);	
+	}
+	return accumulator;
+}
+
+function plain (array){
+	let newArray = [];
+	newArray = array.reduce(reducer, newArray);
 	return newArray;
 }
