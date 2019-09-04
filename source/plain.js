@@ -4,10 +4,8 @@ function plain (array){
 	return array.reduce((accumulator, currentValue)=>{
 	if( Array.isArray(currentValue)){
 		const tempArray = plain(currentValue);
-		accumulator = accumulator.concat(tempArray);
-		return accumulator;
+		return [...accumulator,...tempArray];
 	}
-	accumulator.push(currentValue);	
-	return accumulator;
+	return [...accumulator, currentValue];
 	}, []);
 }
